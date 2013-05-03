@@ -9,40 +9,41 @@ final String TRANSITION_STYLE =
   'opacity 0.7s ease-out';
 
 void main() {
-  var p = new ParagraphElement();
-  p.innerHtml = '<span class="name">Number 1</span> The First Paragraph<br />Still the first paragraph.';
-  pq.addLast(p);
+  for (var i = 0; i < 3; i++){
+    var p = new ParagraphElement();
+    p.innerHtml = '<span class="name">Number 1</span> The First Paragraph<br />Still the first paragraph.';
+    pq.addLast(p);
 
-  p = new ParagraphElement();
-  p.innerHtml = '<span class="name">Number 2</span> The Second Paragraph<br />Second still.<br />Second still.';
-  pq.addLast(p);
+    p = new ParagraphElement();
+    p.innerHtml = '<span class="name">Number 2</span> The Second Paragraph<br />Second still.<br />Second still.';
+    pq.addLast(p);
 
-  p = new ParagraphElement();
-  p.innerHtml =
-    '<span class="name">Number 3</span> '
-    "The Third Paragraph<br />"
-    "The Third Paragraph<br />"
-    "The Third Paragraph<br />"
-    "The Third Paragraph<br />"
-    "The Third Paragraph<br />"
-    "The Third Paragraph<br />" ;
-  pq.addLast(p);
+    p = new ParagraphElement();
+    p.innerHtml =
+      '<span class="name">Number 3</span> '
+      "The Third Paragraph<br />"
+      "The Third Paragraph<br />"
+      "The Third Paragraph<br />"
+      "The Third Paragraph<br />"
+      "The Third Paragraph<br />"
+      "The Third Paragraph<br />" ;
+    pq.addLast(p);
 
-  p = new ParagraphElement();
-  p.innerHtml = '<span class="name">Number 4</span> The Fourth Paragraph<br />4th still.<br />fourth still.';
-  pq.addLast(p);
+    p = new ParagraphElement();
+    p.innerHtml = '<span class="name">Number 4</span> The Fourth Paragraph<br />4th still.<br />fourth still.';
+    pq.addLast(p);
 
-  p = new ParagraphElement();
-  p.innerHtml =
-    '<span class="name">Number 5</span> '
-    "The fifth Paragraph<br />"
-    "The fifth Paragraph<br />"
-    "The fifth Paragraph<br />"
-    "The fifth Paragraph<br />"
-    "The fifth Paragraph<br />"
-    "The fifth Paragraph<br />" ;
-  pq.addLast(p);
-
+    p = new ParagraphElement();
+    p.innerHtml =
+      '<span class="name">Number 5</span> '
+      "The fifth Paragraph<br />"
+      "The fifth Paragraph<br />"
+      "The fifth Paragraph<br />"
+      "The fifth Paragraph<br />"
+      "The fifth Paragraph<br />"
+      "The fifth Paragraph<br />" ;
+    pq.addLast(p);
+  }
   for (var p in pq) {
     document.body.children.add(p);
     p.style.height = '${p.clientHeight}px';
