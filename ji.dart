@@ -74,9 +74,9 @@ void removeFirst() {
   var p2 = new ParagraphElement();
 
   p2.innerHtml = p1.innerHtml;
-  p2.style.height  = '0px';
+  p2.style.height  = p1.style.height;//'0px';
   p2.style.opacity = '0';
-  p2.style.margin  = '0';
+  p2.style.margin  = p1.style.margin;//'0';
   p2.style.transition = TRANSITION_STYLE;
   p2.query('span.name').onClick.listen((_) => setTop(p2));
 
@@ -91,9 +91,9 @@ void removeFirst() {
   p1.style.margin  = '0';
 
   new Timer(new Duration(milliseconds: 2), () {
-      p2.style.height = oldHeight;
+      //p2.style.height = oldHeight;
       p2.style.opacity = oldOpacity;
-      p2.style.margin = oldMargin;
+      //p2.style.margin = oldMargin;
     });
   
   new Timer(new Duration(milliseconds: 1000), () {
