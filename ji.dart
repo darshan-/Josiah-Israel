@@ -6,15 +6,16 @@ var pq = new ListQueue();
 
 void main() {
   var p = new ParagraphElement();
-  p.innerHtml = "The First Paragraph<br />Still the first paragraph.";
+  p.innerHtml = '<span class="name">Number 1</span> The First Paragraph<br />Still the first paragraph.';
   pq.addLast(p);
 
   p = new ParagraphElement();
-  p.innerHtml = "The Second Paragraph<br />Second still.<br />Second still.";
+  p.innerHtml = '<span class="name">Number 2</span> The Second Paragraph<br />Second still.<br />Second still.';
   pq.addLast(p);
 
   p = new ParagraphElement();
   p.innerHtml =
+    '<span class="name">Number 3</span> '
     "The Third Paragraph<br />"
     "The Third Paragraph<br />"
     "The Third Paragraph<br />"
@@ -23,16 +24,32 @@ void main() {
     "The Third Paragraph<br />" ;
   pq.addLast(p);
 
-  var b1 = new ButtonElement();
-  b1.innerHtml = "Press me!";
-  b1.onClick.listen(buttonPressed);
+  p = new ParagraphElement();
+  p.innerHtml = '<span class="name">Number 4</span> The Fourth Paragraph<br />4th still.<br />fourth still.';
+  pq.addLast(p);
 
-  document.body.children.add(b1);
+  p = new ParagraphElement();
+  p.innerHtml =
+    '<span class="name">Number 5</span> '
+    "The fifth Paragraph<br />"
+    "The fifth Paragraph<br />"
+    "The fifth Paragraph<br />"
+    "The fifth Paragraph<br />"
+    "The fifth Paragraph<br />"
+    "The fifth Paragraph<br />" ;
+  pq.addLast(p);
 
   for (var p in pq) {
     document.body.children.add(p);
     p.style.height = '${p.clientHeight}px';
     p.style.margin = '10px 0px 10px 0px';
+
+    var span = p.query('span.name');
+    span.style
+      ..fontWeight = 'bold'
+      //..color = 'blue'
+      ..cursor = 'pointer';
+    span.onClick.listen((_) => setTop(p));
   }
 
   // Initial application of styles shouldn't be transitioned,
@@ -44,7 +61,11 @@ void main() {
     });
 }
 
-void buttonPressed(event) {
+void setTop(newTop) {
+  while (pq.first != newTop) removeFirst();
+}
+
+void removeFirst() {
   var p1 = pq.removeFirst();
   var p2 = new ParagraphElement();
 
@@ -53,6 +74,8 @@ void buttonPressed(event) {
   p2.style.opacity = '0';
   p2.style.margin  = '0';
   p2.style.transition = 'all 1s';
+
+  p2.query('span.name').onClick.listen((_) => setTop(p2));
 
   pq.addLast(p2);
   document.body.children.add(p2);
