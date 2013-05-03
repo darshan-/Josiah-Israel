@@ -3,6 +3,10 @@ import 'dart:collection';
 import 'dart:async';
 
 var pq = new ListQueue();
+final String TRANSITION_STYLE =
+  'height 0.7s ease-in-out, '
+  'margin 0.7s ease-in-out, '
+  'opacity 0.7s ease-out';
 
 void main() {
   var p = new ParagraphElement();
@@ -56,7 +60,7 @@ void main() {
   //  so set transition style after main() returns.
   new Timer(new Duration(milliseconds: 50), () {
       for (var p in pq) {
-        p.style.transition = 'all 1s';
+        p.style.transition = TRANSITION_STYLE;
       }      
     });
 }
@@ -73,8 +77,7 @@ void removeFirst() {
   p2.style.height  = '0px';
   p2.style.opacity = '0';
   p2.style.margin  = '0';
-  p2.style.transition = 'all 1s';
-
+  p2.style.transition = TRANSITION_STYLE;
   p2.query('span.name').onClick.listen((_) => setTop(p2));
 
   pq.addLast(p2);
@@ -93,7 +96,7 @@ void removeFirst() {
       p2.style.margin = oldMargin;
     });
   
-  new Timer(new Duration(milliseconds: 1000), () {
+  new Timer(new Duration(milliseconds: 700), () { // This causes a slight glitch at the end...
       p1.remove();
     });
 }
