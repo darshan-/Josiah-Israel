@@ -46,7 +46,7 @@ void main() {
   for (var p in pq) {
     document.body.children.add(p);
     p.style.height = '${p.clientHeight}px';
-    p.style.margin = '10px 0px 10px 0px';
+    p.style.margin = '0px 0px 10px 0px';
 
     var span = p.query('span.name');
     span.style
@@ -58,7 +58,7 @@ void main() {
 
   // Initial application of styles shouldn't be transitioned,
   //  so set transition style after main() returns.
-  new Timer(new Duration(milliseconds: 50), () {
+  new Timer(new Duration(milliseconds: 2), () {
       for (var p in pq) {
         p.style.transition = TRANSITION_STYLE;
       }      
@@ -90,13 +90,13 @@ void removeFirst() {
   p1.style.opacity = '0';
   p1.style.margin  = '0';
 
-  new Timer(new Duration(milliseconds: 50), () {
+  new Timer(new Duration(milliseconds: 2), () {
       p2.style.height = oldHeight;
       p2.style.opacity = oldOpacity;
       p2.style.margin = oldMargin;
     });
   
-  new Timer(new Duration(milliseconds: 700), () { // This causes a slight glitch at the end...
+  new Timer(new Duration(milliseconds: 1000), () {
       p1.remove();
     });
 }
