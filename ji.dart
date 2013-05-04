@@ -26,7 +26,7 @@ void main() {
 
 void setTop(newTop) {
   var div = new DivElement();
-  div.style.margin = '0';
+  div.style.margin = '0px 0px 10px 0px';
   div.style.padding = '0';
 
   while (pq.first != newTop) {
@@ -44,7 +44,10 @@ void setTop(newTop) {
   new Timer(new Duration(milliseconds: 2), () {
       div.style.transition = TRANSITION_STYLE;
       div.style.opacity = '0';
-      div.style.height = '0px';
+      div.style.marginTop = '-${div.clientHeight + 10}px';
+      for (var p in pq) {
+        p.style.opacity = '1';
+      }
     });
 
   new Timer(new Duration(milliseconds: 703), () {
@@ -56,12 +59,14 @@ copyParagraph(p1) {
   var p2 = new ParagraphElement();
   p2.innerHtml = p1.innerHtml;
   p2.style.margin = p1.style.margin;
+  p2.style.opacity = '0';
+  p2.style.transition = 'opacity 0.7s ease-in';
   p2.query('span.name').onClick.listen((_) => setTop(p2));
   return p2;
 }
 
 void fillPq() {
-  for (var i = 0; i < 3; i++){
+  for (var i = 0; i < 2; i++){
     var p = new ParagraphElement();
     p.innerHtml = '<span class="name">Number 1</span> The First Paragraph<br />Still the first paragraph.';
     pq.addLast(p);
