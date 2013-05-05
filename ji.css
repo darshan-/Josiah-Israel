@@ -16,9 +16,6 @@ h3, h4, h5
   left: 50%;
   margin-left: -313px;
 
-  -moz-border-radius: 15px;
-  -khtml-border-radius: 15px;
-  -webkit-border-radius: 15px;
   border-radius: 15px;
   border: 1px solid black;
 
@@ -66,10 +63,6 @@ h1 {
 
   background: url('player-bg-blue.jpeg');
 
-
-  -moz-border-radius: 25px;
-  -khtml-border-radius: 25px;
-  -webkit-border-radius: 25px;
   border-radius: 25px;
   border: 1px solid #222;
 
@@ -100,6 +93,7 @@ h1 {
 }
 
 .songname {
+  font-weight: bold;
   cursor: pointer;
   padding: .25em;
 }
@@ -112,10 +106,7 @@ h1 {
   color: #444;
   color: #2525C9;
 
-  border-radius: .20em;
-  -moz-border-radius: .25em;
-  -webkit-border-radius: .25em;
-  border-radius: .25em;
+  border-radius: .35em;
   /*outline: 1px solid black;*/
 }
 
@@ -137,9 +128,6 @@ p {
 
   background-color: #eee;
 
-  -moz-border-radius: 5px;
-  -khtml-border-radius: 5px;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
 
   border: 1px solid #bbb;

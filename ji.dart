@@ -16,32 +16,19 @@ void main() {
   for (var p in pq) {
     listDiv.children.add(p);
     p.style.margin = '0px 0px 10px 0px';
-    p.style.zIndex = '1';
-    p.style.position = 'relative';
+    //p.style.zIndex = '1';
+    //p.style.position = 'relative';
 
-    var span = p.query('span.name');
-    span.style
-      ..fontWeight = 'bold'
+    var span = p.query('span.songname');
+    //span.style
+    //..fontWeight = 'bold'
       //..color = 'blue'
-      ..cursor = 'pointer';
+      //..cursor = 'pointer';
     span.onClick.listen((_) => setTop(p));
   }
 
-  var curtainHeight = query('#separator').getClientRects()[0].bottom;
-  var curtain = new DivElement();
-  curtain.style.backgroundColor = 'white';
-  curtain.style.zIndex = '5';
-  curtain.style.opacity = '.999999';
-  curtain.style.position = 'absolute';
-  curtain.style.top = '0';
-  curtain.style.height = '${curtainHeight}px';
-  curtain.style.width  = '100%';
-  curtain.id = 'curtain';
-  //document.body.children.add(curtain);
-
-  listDiv.style.zIndex = '1';
-  listDiv.style.opacity = '.99';
-  //document.body.children.add(listDiv);
+  listDiv.style.height = '${listDiv.clientHeight}px';
+  listDiv.style.overflow = 'hidden';
 }
 
 void setTop(newTop) {
@@ -61,18 +48,17 @@ void setTop(newTop) {
   }
 
   listDiv.children.insert(0, div);
-  div.style.height = '${div.clientHeight}px';
 
-  new Timer(new Duration(milliseconds: 2), () {
+  new Timer(new Duration(milliseconds: 25), () {
       div.style.transition = TRANSITION_STYLE;
       div.style.opacity = '0';
       div.style.marginTop = '-${div.clientHeight + 10}px';
       for (var p in pq) {
-        p.style.opacity = '.99';
+        p.style.opacity = '1';
       }
     });
 
-  new Timer(new Duration(milliseconds: 703), () {
+  new Timer(new Duration(milliseconds: 727), () {
       div.remove();
     });
 }
@@ -85,23 +71,23 @@ copyParagraph(p1) {
   p2.style.opacity = '0';
   p2.style.position = 'relative';
   p2.style.transition = 'opacity 0.7s ease-in';
-  p2.query('span.name').onClick.listen((_) => setTop(p2));
+  p2.query('span.songname').onClick.listen((_) => setTop(p2));
   return p2;
 }
 
 void fillPq() {
   for (var i = 0; i < 2; i++){
     var p = new ParagraphElement();
-    p.innerHtml = '<span class="name">Number 1</span> The First Paragraph<br />Still the first paragraph.';
+    p.innerHtml = '<span class="songname">Number 1</span> The First Paragraph<br />Still the first paragraph.';
     pq.addLast(p);
 
     p = new ParagraphElement();
-    p.innerHtml = '<span class="name">Number 2</span> The Second Paragraph<br />Second still.<br />Second still.';
+    p.innerHtml = '<span class="songname">Number 2</span> The Second Paragraph<br />Second still.<br />Second still.';
     pq.addLast(p);
 
     p = new ParagraphElement();
     p.innerHtml =
-      '<span class="name">Number 3</span> '
+      '<span class="songname">Number 3</span> '
       "The Third Paragraph<br />"
       "The Third Paragraph<br />"
       "The Third Paragraph<br />"
@@ -111,12 +97,12 @@ void fillPq() {
     pq.addLast(p);
 
     p = new ParagraphElement();
-    p.innerHtml = '<span class="name">Number 4</span> The Fourth Paragraph<br />4th still.<br />fourth still.';
+    p.innerHtml = '<span class="songname">Number 4</span> The Fourth Paragraph<br />4th still.<br />fourth still.';
     pq.addLast(p);
 
     p = new ParagraphElement();
     p.innerHtml =
-      '<span class="name">Number 5</span> '
+      '<span class="songname">Number 5</span> '
       "The fifth Paragraph<br />"
       "The fifth Paragraph<br />"
       "The fifth Paragraph<br />"
