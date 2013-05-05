@@ -8,7 +8,7 @@ final String TRANSITION_STYLE =
   'margin 0.7s ease-in-out, '
   'opacity 0.7s ease-out';
 
-var listDiv = new DivElement();
+var listDiv = query('#song-list');
 
 void main() {
   fillPq();
@@ -27,18 +27,21 @@ void main() {
     span.onClick.listen((_) => setTop(p));
   }
 
-  var h2 = new HeadingElement.h1();
-  h2.innerHtml = 'The Header';
-  h2.style.color = 'green';
-  h2.style.backgroundColor = 'white';
-  h2.style.zIndex = '5';
-  h2.style.opacity = '.99';
-  h2.style.position = 'relative';
-  document.body.children.add(h2);
+  var curtainHeight = query('#separator').getClientRects()[0].bottom;
+  var curtain = new DivElement();
+  curtain.style.backgroundColor = 'white';
+  curtain.style.zIndex = '5';
+  curtain.style.opacity = '.999999';
+  curtain.style.position = 'absolute';
+  curtain.style.top = '0';
+  curtain.style.height = '${curtainHeight}px';
+  curtain.style.width  = '100%';
+  curtain.id = 'curtain';
+  //document.body.children.add(curtain);
 
   listDiv.style.zIndex = '1';
   listDiv.style.opacity = '.99';
-  document.body.children.add(listDiv);
+  //document.body.children.add(listDiv);
 }
 
 void setTop(newTop) {

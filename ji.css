@@ -1,0 +1,170 @@
+@charset "UTF-8";
+
+html, body,
+img, table,
+div, p, h1, h2,
+h3, h4, h5
+{
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+#content {
+  width: 600px;
+  position: relative;
+  left: 50%;
+  margin-left: -313px;
+
+  -moz-border-radius: 15px;
+  -khtml-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  border: 1px solid black;
+
+  padding: 12px;
+
+  background-color: #f0f0f0;
+
+  font-family: Arial;
+  font-size: 14px;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+audio {
+  width: 310px;
+}
+
+@font-face {
+  font-family: Muriel;
+  src: url("muriel.ttf"),
+       url("http://www.darshancomputing.com/JosiahIsrael/muriel.ttf");
+}
+
+@font-face {
+  font-family: lcd;
+  src: url("lcd.ttf"),
+       url("http://www.darshancomputing.com/JosiahIsrael/lcd.ttf");
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-family: Muriel;
+  font-size: 48px;
+  font-weight: normal;
+}
+
+#player-area {
+  width: 310px;
+
+  padding: 5px;
+
+  background-color: #e0e0e0;
+
+  background: url('player-bg-blue.jpeg');
+
+
+  -moz-border-radius: 25px;
+  -khtml-border-radius: 25px;
+  -webkit-border-radius: 25px;
+  border-radius: 25px;
+  border: 1px solid #222;
+
+  margin-bottom: 20px;
+
+  text-align: center;
+}
+
+#badge {
+  width: 200px;
+  height: 127px;
+  float: right;
+
+  margin-top: -8px;
+  margin-right: 35px;
+}
+
+#curtracktime {
+  font-size: 30px;
+  font-family:lcd;
+  margin-bottom: 10px;
+}
+
+#curtrackname {
+  font-weight: bold;
+  color: #449;
+  margin-bottom: 10px;
+}
+
+.songname {
+  cursor: pointer;
+  padding: .25em;
+}
+
+.songname:hover {
+/*  background-color: #90c0fa;
+  color: #2625C9;
+  background-color: #F8F6C5;*/
+  background-color: #C8DDFF;
+  color: #444;
+  color: #2525C9;
+
+  border-radius: .20em;
+  -moz-border-radius: .25em;
+  -webkit-border-radius: .25em;
+  border-radius: .25em;
+  /*outline: 1px solid black;*/
+}
+
+html {
+  background-color: #ccc;
+  background-color: #90c0fa;
+  background-color: #C8DCFF;
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+#controls img{
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 4px;
+  cursor: pointer;
+
+  background-color: #eee;
+
+  -moz-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+
+  border: 1px solid #bbb;
+}
+
+#controls img:hover{
+  background-color: #fbfbfb;
+}
+
+#controls img:active{
+  margin-left: 11px;
+  margin-right: 9px;
+}
+
+#copyright {
+  margin-bottom: 10px;
+
+  width: 600px;
+  position: relative;
+  left: 50%;
+  margin-left: -310px;
+}
+
+hr {
+  width: 75%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
