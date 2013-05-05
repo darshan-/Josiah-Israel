@@ -15,16 +15,7 @@ void main() {
 
   for (var p in pq) {
     listDiv.children.add(p);
-    p.style.margin = '0px 0px 10px 0px';
-    //p.style.zIndex = '1';
-    //p.style.position = 'relative';
-
-    var span = p.query('span.songname');
-    //span.style
-    //..fontWeight = 'bold'
-      //..color = 'blue'
-      //..cursor = 'pointer';
-    span.onClick.listen((_) => setTop(p));
+    p.query('span.songname').onClick.listen((_) => setTop(p));
   }
 
   listDiv.style.height = '${listDiv.clientHeight}px';
@@ -66,8 +57,6 @@ void setTop(newTop) {
 copyParagraph(p1) {
   var p2 = new ParagraphElement();
   p2.innerHtml = p1.innerHtml;
-  p2.style.margin = p1.style.margin;
-  p2.style.zIndex = p1.style.zIndex;
   p2.style.opacity = '0';
   p2.style.position = 'relative';
   p2.style.transition = 'opacity 0.7s ease-in';
