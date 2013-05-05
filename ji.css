@@ -157,6 +157,6 @@ hr {
   margin-bottom: 5px;
 }
 
-#song-list p:first-child {
+#song-list :first-child {
   margin-top: 15px;
 }

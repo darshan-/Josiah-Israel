@@ -18,7 +18,7 @@ void main() {
     p.query('span.songname').onClick.listen((_) => setTop(p));
   }
 
-  listDiv.style.height = '${listDiv.clientHeight}px';
+  listDiv.style.height = '${listDiv.clientHeight + 30}px';
   listDiv.style.overflow = 'hidden';
 }
 
@@ -26,8 +26,6 @@ void setTop(newTop) {
   if (pq.first == newTop) return;
 
   var div = new DivElement();
-  div.style.margin = '0px 0px 10px 0px';
-  div.style.padding = '0';
 
   while (pq.first != newTop) {
     var p = pq.removeFirst();
@@ -43,13 +41,13 @@ void setTop(newTop) {
   new Timer(new Duration(milliseconds: 25), () {
       div.style.transition = TRANSITION_STYLE;
       div.style.opacity = '0';
-      div.style.marginTop = '-${div.clientHeight + 10}px';
+      div.style.marginTop = '-${div.clientHeight + 15}px';
       for (var p in pq) {
         p.style.opacity = '1';
       }
     });
 
-  new Timer(new Duration(milliseconds: 727), () {
+  new Timer(new Duration(milliseconds: 800), () {
       div.remove();
     });
 }
