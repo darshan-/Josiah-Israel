@@ -115,6 +115,7 @@ html {
   background-color: #ccc;
   background-color: #90c0fa;
   background-color: #C8DCFF;
+  overflow-y: scroll; /* Simplest way to avoid shake when css-auto-scrolling from bottom. */
 }
 
 p {
