@@ -6,7 +6,8 @@ import 'dart:async';
 
 import 'song_info.dart';
 
-var pq = new ListQueue();
+var song_queue = new ListQueue();
+
 final String TRANSITION_STYLE =
   'height 0.7s ease-in-out, '
   'margin 0.7s ease-in-out, '
@@ -15,9 +16,9 @@ final String TRANSITION_STYLE =
 var listDiv = query('#song-list');
 
 void main() {
-  fillPq();
+  fillSongQueue();
 
-  for (var p in pq) {
+  for (var p in song_queue) {
     listDiv.children.add(p);
     p.query('span.songname').onClick.listen((_) => setTop(p));
   }
@@ -27,26 +28,31 @@ void main() {
 }
 
 void setTop(newTop) {
-  if (pq.first == newTop) return;
+  if (song_queue.first == newTop) return;
 
   var div = new DivElement();
 
-  while (pq.first != newTop) {
-    var p = pq.removeFirst();
+  while (song_queue.first != newTop) {
+    var p = song_queue.removeFirst();
     p.remove();
     div.children.add(p);
-    var p2 = copyParagraph(p);
+    var p2 = copyDiv(p);
     listDiv.children.add(p2);
-    pq.addLast(p2);
+    song_queue.addLast(p2);
   }
 
   listDiv.children.insert(0, div);
+
+  // TODO: Use window.pageYOffset (or window.scrollY?) to figure out how much scrolling
+  //   is needed, combined with window.By(x, y) and requestAnimationFrame to do this
+  //   gradually and smoothly?
+  window.scrollTo(0, 0);
 
   new Timer(new Duration(milliseconds: 25), () {
       div.style.transition = TRANSITION_STYLE;
       div.style.opacity = '0';
       div.style.marginTop = '-${div.clientHeight + 15}px';
-      for (var p in pq) {
+      for (var p in song_queue) {
         p.style.opacity = '1';
       }
     });
@@ -56,50 +62,31 @@ void setTop(newTop) {
     });
 }
 
-copyParagraph(p1) {
-  var p2 = new ParagraphElement();
-  p2.innerHtml = p1.innerHtml;
-  p2.style.opacity = '0';
-  p2.style.position = 'relative';
-  p2.style.transition = 'opacity 0.7s ease-in';
-  p2.query('span.songname').onClick.listen((_) => setTop(p2));
-  return p2;
+copyDiv(d1) {
+  var d2 = new DivElement();
+  d2.innerHtml = d1.innerHtml;
+  d2.style.opacity = '0';
+  d2.style.position = 'relative';
+  d2.style.transition = 'opacity 0.7s ease-in';
+  d2.query('span.songname').onClick.listen((_) => setTop(d2));
+  return d2;
 }
 
-void fillPq() {
-  for (var i = 0; i < 2; i++){
-    var p = new ParagraphElement();
-    p.innerHtml = '<span class="songname">Number 1</span> The First Paragraph<br />Still the first paragraph.';
-    pq.addLast(p);
+void fillSongQueue() {
+  for (var song in songs) {
+    var div = new DivElement();
 
-    p = new ParagraphElement();
-    p.innerHtml = '<span class="songname">Number 2</span> The Second Paragraph<br />Second still.<br />Second still.';
-    pq.addLast(p);
+    var desc = song['description'];
+    if (! desc.contains('<p>'))
+      desc = '<p>$desc</p>';
 
-    p = new ParagraphElement();
-    p.innerHtml =
-      '<span class="songname">Number 3</span> '
-      "The Third Paragraph<br />"
-      "The Third Paragraph<br />"
-      "The Third Paragraph<br />"
-      "The Third Paragraph<br />"
-      "The Third Paragraph<br />"
-      "The Third Paragraph<br />" ;
-    pq.addLast(p);
+    var header =
+      '<p><span class="songname">${song["name"]}</span>'
+      ' - '
+      '<i>${song["date"]}</i></p>\n';
 
-    p = new ParagraphElement();
-    p.innerHtml = '<span class="songname">Number 4</span> The Fourth Paragraph<br />4th still.<br />fourth still.';
-    pq.addLast(p);
+    div.innerHtml = header + desc;
 
-    p = new ParagraphElement();
-    p.innerHtml =
-      '<span class="songname">Number 5</span> '
-      "The fifth Paragraph<br />"
-      "The fifth Paragraph<br />"
-      "The fifth Paragraph<br />"
-      "The fifth Paragraph<br />"
-      "The fifth Paragraph<br />"
-      "The fifth Paragraph<br />" ;
-    pq.addLast(p);
+    song_queue.addLast(div);
   }
 }
