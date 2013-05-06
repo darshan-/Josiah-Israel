@@ -96,6 +96,7 @@ h1 {
   font-weight: bold;
   cursor: pointer;
   padding: .25em;
+  margin-left: -15px;
 }
 
 .songname:hover {
@@ -118,6 +119,20 @@ html {
 
 p {
   margin-bottom: 15px;
+}
+
+.song-info p {
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 12px;
+}
+
+.song-info p:first-child {
+  margin-bottom: 7px;
+}
+
+.song-info {
+  margin-bottom: 24px;
 }
 
 #controls img{
