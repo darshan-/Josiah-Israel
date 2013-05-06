@@ -1,6 +1,10 @@
+/*  Copyright (C) 2009-2013 Darshan-Josiah Barber */
+
 import 'dart:html';
 import 'dart:collection';
 import 'dart:async';
+
+import 'song_info.dart';
 
 var pq = new ListQueue();
 final String TRANSITION_STYLE =
