@@ -43,12 +43,22 @@ void setTop(newTop) {
 
   listDiv.children.insert(0, div);
 
-  // TODO: Use window.pageYOffset (or window.scrollY?) to figure out how much scrolling
-  //   is needed, combined with window.By(x, y) and requestAnimationFrame to do this
-  //   gradually and smoothly?
+  // Transitioned scrolling technique from:
+  //   http://mitgux.com/smooth-scroll-to-top-using-css3-animations
+  //
+  // I'm happy with it other than the effect on the scroll bar (rather than
+  //   actually scrolling the page, we're shrinking and then growing it, so
+  //   the scrollbar grows and then shrinks rather than sliding), but it's
+  //   good enough for now.
+
+  document.body.style.transition = 'none';
+  document.body.style.marginTop = '-${window.scrollY}px';
   window.scrollTo(0, 0);
 
   new Timer(new Duration(milliseconds: 25), () {
+      document.body.style.transition = 'margin 0.4s ease-in-out';
+      document.body.style.marginTop = '0';
+
       div.style.transition = TRANSITION_STYLE;
       div.style.opacity = '0';
       div.style.marginTop = '-${div.clientHeight + 15}px';
