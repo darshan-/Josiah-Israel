@@ -12,7 +12,7 @@ var songs =
    'flags' : ['guitar', 'vocals'],
 
    'description' : """
-Self expression is satisfying.</p>
+<p>Self expression is satisfying.</p>
 
 <p><i>It feels like my heart is going to explode.<br />
 It feels like my heart is going to explode.</i></p>
@@ -31,7 +31,7 @@ love. Love. Love, love, love, love.</i></p>
 <p><i>Sometimes my heart feels so much.<br />
 Sometimes my heart feels so much,<br />
 that I cry my eyes. I cry my eyes out.<br />
-I write cheesy songs, and I cry my eyes out.</i>
+I write cheesy songs, and I cry my eyes out.</i></p>
 """
    },
 
@@ -41,11 +41,13 @@ I write cheesy songs, and I cry my eyes out.</i>
    'flags' : ['guitar', 'vocals'],
 
    'description' : """
-I wrote this in the winter of 2000.  It's been one of my favorite
+<p>I wrote this in the winter of 2000.  It's been one of my favorite
 songs ever since, but for some reason I never got around to recording
-it until today.</p> <p><i>Every morning, I get real tired, and I lie
-down in my soft, warm bed.</i><br/> <i>Images pass before my
-eyes.</i><br/> <i>Scenes are granted my mind to view.</i><br/>
+it until today.</p>
+
+<p><i>Every morning, I get real tired, and I lie down in my soft, warm
+bed.</i><br/> <i>Images pass before my eyes.</i><br/>
+<i>Scenes are granted my mind to view.</i><br/>
 <i>Other worlds I enter at random.</i></p>
 
 <p><i>The story makes no sense, but it's cool as hell.</i><br/>
@@ -68,7 +70,7 @@ eyes.</i><br/> <i>Scenes are granted my mind to view.</i><br/>
 <p><i>If you want to see me in heaven,</i><br/>
 <i>Then you will der, and you will der.</i><br/>
 <i>Just like I do.</i><br/>
-<i>Just like me.</i>
+<i>Just like me.</i></p>
 """
    },
 
@@ -78,7 +80,7 @@ eyes.</i><br/> <i>Scenes are granted my mind to view.</i><br/>
    'flags' : ['guitar', 'vocals'],
 
    'description' : """
-I used to be part of a spirtual community that was just a bit
+<p>I used to be part of a spirtual community that was just a bit
 cult-like.  The head teacher had way too much control over us, and
 this somewhat angry, self-empowering song was written right after I
 left the group in spring 2007.</p>
@@ -95,7 +97,7 @@ left the group in spring 2007.</p>
 
 <p><i>You've been warned.</i><br/>
 <i>You better watch out.</i><br/>
-<i>You've been warned.</i>
+<i>You've been warned.</i></p>
 """
    },
 
@@ -105,7 +107,8 @@ left the group in spring 2007.</p>
    'flags' : ['guitar', 'vocals'],
 
    'description' : """
-I had a crush on my friend, Ann, in September 2009.</p>
+<p>I had a crush on my friend, Ann, in September 2009.</p>
+
 <p><i>I like your skin.</i><br/>
 <i>Skin, oh it's beautiful.</i><br/>
 <i>Skin, oh it's so soft.</i><br/>
@@ -119,7 +122,7 @@ I had a crush on my friend, Ann, in September 2009.</p>
 <p><i>Your name is Ann.</i><br/>
 <i>My name is Darshan.</i><br/>
 <i>I like the way you talk; I like your Czech accent.</i><br/>
-<i>I love the shape of your lips, and I love your beautiful eyes.</i>
+<i>I love the shape of your lips, and I love your beautiful eyes.</i></p>
 """
    },
 
@@ -129,7 +132,8 @@ I had a crush on my friend, Ann, in September 2009.</p>
    'flags' : ['guitar', 'vocals'],
 
    'description' : """
-I had a crush on my friend, Ellen, in January 2008.</p>
+<p>I had a crush on my friend, Ellen, in January 2008.</p>
+
 <p><i>Ellen, I like you.</i></p>
 
 <p><i>While it is certainly true that I don't know you very well,</i><br/>
@@ -137,7 +141,7 @@ I had a crush on my friend, Ellen, in January 2008.</p>
 
 <p><i>I'd like to dance with you.</i><br/>
 <i>How'd you like to dance with me?</i><br/>
-<i>Well, I could dance the whole night through, If I could dance with you.</i>
+<i>Well, I could dance the whole night through, If I could dance with you.</i></p>
 """
    },
 
@@ -147,17 +151,18 @@ I had a crush on my friend, Ellen, in January 2008.</p>
    'flags' : ['guitar', 'vocals'],
 
    'description' : """
-I wrote this in the summer of 2004. I was getting really into
+<p>I wrote this in the summer of 2004. I was getting really into
 meditation and experiencing a lot of lovey feelings inside, but I was
 also feeling very critcal of the world and felt that it was severely
-broken and lacking in love.</p> <p><i>What has happened to the world
-we live in?</i><br/> <i>Love is talked/sung about, but practically
-forgotten.</i></p>
+broken and lacking in love.</p>
+
+<p><i>What has happened to the world we live in?</i><br/>
+   <i>Love is talked/sung about, but practically forgotten.</i></p>
 
 <p><i>Well, I invite you to know love.</i></p>
 
 <p><i>Love is offered for us to just rest/dance/sing/play/laugh in.</i><br/>
-     <i>So just sing and dance and play and laugh in it.</i>
+   <i>So just sing and dance and play and laugh in it.</i></p>
 """
    },
 
@@ -167,7 +172,8 @@ forgotten.</i></p>
    'flags' : ['guitar', 'vocals'],
 
    'description' : """
-A funny little song written in the summer of 2007.</p>
+<p>A funny little song written in the summer of 2007.</p>
+
 <p><i>It's so miraculous just to be alive.</i></p>
 
 <p><i>Let's go for a walk,</i><br/>
@@ -176,7 +182,7 @@ A funny little song written in the summer of 2007.</p>
 <i>Let's go out tonight.</i></p>
 
 <p><i>Just that we exist I feel is a miracle.</i><br/>
-<i>It's so miraculous just to be around.</i>
+<i>It's so miraculous just to be around.</i></p>
 """
    },
 
@@ -258,7 +264,7 @@ carefully.
    'date' : "200912", 'flags' : ['vocals', 'guitar'],
 
    'description' : """
-One of the only songs up here right now in which I actually sing.  I
+<p>One of the only songs up here right now in which I actually sing.  I
 love singing, but most of my songwriting lately has been done in the
 wee hours of the morning, when Asha's sleeping, so my only option is
 electronic music and headphones.</p>
@@ -283,7 +289,7 @@ ladies</p>
 love with me</i> = make music that rocks / have fun connecting with
 pretty ladies</p>
 
-<p>I figured that was probably about right.
+<p>I figured that was probably about right.</p>
 """
    },
 
