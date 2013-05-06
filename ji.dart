@@ -30,18 +30,22 @@ void main() {
 void setTop(newTop) {
   if (song_queue.first == newTop) return;
 
-  var div = new DivElement();
+  var removalDiv = new DivElement();
 
   while (song_queue.first != newTop) {
-    var p = song_queue.removeFirst();
-    p.remove();
-    div.children.add(p);
-    var p2 = copyDiv(p);
-    listDiv.children.add(p2);
-    song_queue.addLast(p2);
+    var orig = song_queue.removeFirst();
+    var copy = copyDiv(orig);
+
+    orig.remove();
+    removalDiv.children.add(orig);
+
+    copy.style.transition = 'opacity 0.8s ease-in';
+    copy.style.opacity = '0';
+    listDiv.children.add(copy);
+    song_queue.addLast(copy);
   }
 
-  listDiv.children.insert(0, div);
+  listDiv.children.insert(0, removalDiv);
 
   // Transitioned scrolling technique from:
   //   http://mitgux.com/smooth-scroll-to-top-using-css3-animations
@@ -53,22 +57,22 @@ void setTop(newTop) {
 
   document.body.style.transition = 'none';
   document.body.style.marginTop = '-${window.scrollY}px';
-  window.scrollTo(0, 0);
+  window.scrollTo(window.scrollX, 0);
 
   new Timer(new Duration(milliseconds: 25), () {
       document.body.style.transition = 'margin 0.4s ease-in-out';
       document.body.style.marginTop = '0';
 
-      div.style.transition = TRANSITION_STYLE;
-      div.style.opacity = '0';
-      div.style.marginTop = '-${div.clientHeight + 24}px'; // (24 = .song-info marginBottom)
+      removalDiv.style.transition = TRANSITION_STYLE;
+      removalDiv.style.opacity = '0';
+      removalDiv.style.marginTop = '-${removalDiv.clientHeight + 24}px'; // (24 = .song-info marginBottom)
       for (var p in song_queue) {
         p.style.opacity = '1';
       }
     });
 
   new Timer(new Duration(milliseconds: 800), () {
-      div.remove();
+      removalDiv.remove();
     });
 }
 
@@ -76,9 +80,7 @@ copyDiv(d1) {
   var d2 = new DivElement();
   d2.innerHtml = d1.innerHtml;
   d2.classes.add('song-info');
-  d2.style.opacity = '0';
-  d2.style.position = 'relative';
-  d2.style.transition = 'opacity 0.7s ease-in';
+  d2.style.opacity = d1.style.opacity;
   d2.query('span.songname').onClick.listen((_) => setTop(d2));
   return d2;
 }
@@ -87,6 +89,7 @@ void fillSongQueue() {
   for (var song in songs) {
     var div = new DivElement();
     div.classes.add('song-info');
+    div.style.opacity = '1';
 
     var desc = song['description'];
     if (! desc.contains('<p>'))
