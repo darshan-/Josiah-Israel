@@ -2,6 +2,11 @@
 
 library song_info;
 
+import 'dart:html';
+
+final SONG_INFO_DIV_CLASS  = 'song-info';
+final SONG_NAME_SPAN_CLASS = 'songname';
+
 var flags = ['drums', 'keyboard', 'vocals', 'guitar', 'violin'];
 
 var songs =
@@ -368,3 +373,70 @@ should record at some point.
 """
    },
 ];
+
+String prettifyDate(s) {
+  var months = {
+    "01" : "January",
+    "02" : "February",
+    "03" : "March",
+    "04" : "April",
+    "05" : "May",
+    "06" : "June",
+    "07" : "July",
+    "08" : "August",
+    "09" : "September",
+    "10" : "October",
+    "11" : "November",
+    "12" : "December"
+  };
+
+  var year = s.substring(0, 4);
+
+  if (! s[4].contains(new RegExp(r'\d')))
+    return s.substring(4) + " " + year;
+
+  var month = months[s.substring(4, 6)];
+
+  var ret = "";
+
+  if (s.length > 6) {
+    var day = s.substring(6, 8);
+
+    if (day[0] == '0')
+      day = day[1];
+
+    if (day != null)
+      ret += day + " ";
+  }
+
+  ret += month + " ";
+  ret += year;
+
+  return ret;
+}
+
+DivElement divFromSong(song) {
+  var div = new DivElement();
+  div.classes.add(SONG_INFO_DIV_CLASS);
+
+  var desc = song['description'];
+  if (! desc.contains('<p>'))
+    desc = '<p>$desc</p>';
+
+  var header =
+    '<p><span class="$SONG_NAME_SPAN_CLASS">${song["name"]}</span>'
+    ' - '
+    '<i>${prettifyDate(song["date"])}</i></p>\n';
+
+  div.innerHtml = header + desc;
+
+  return div;
+}
+
+DivElement copySongDiv(orig) {
+  var copy = new DivElement();
+  copy.innerHtml = orig.innerHtml;
+  copy.classes = orig.classes.toList();
+  copy.style.opacity = orig.style.opacity;
+  return copy;
+}
