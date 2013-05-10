@@ -66,7 +66,9 @@ h1 {
 
   background-color: #e0e0e0;
 
-  background: url('player-bg-blue.jpeg');
+  background: -webkit-linear-gradient(bottom, #accce3, #f0f5f9);
+  background:    -moz-linear-gradient(bottom, #accce3, #f0f5f9);
+  background:         linear-gradient(bottom, #accce3, #f0f5f9);
 
   border-radius: 15px;
   border: 1px solid #222;
