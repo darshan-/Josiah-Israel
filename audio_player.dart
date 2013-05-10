@@ -93,11 +93,8 @@ class AudioPlayer {
 
     _audioElem.onCanPlay.listen((_) => _updatePlayPauseButton());
     _audioElem.onEnded.listen(_songEnded);
-    /*
-    au.addEventListener("durationchange", dispDuration, true);
-    au.addEventListener("timeupdate", dispCurrentTime, true);
-    */
-
+    _audioElem.onDurationChange.listen(_displayDuration);
+    _audioElem.onTimeUpdate.listen(_displayCurrentTime);
   }
 
   void setPrev(String name) {
@@ -180,34 +177,25 @@ class AudioPlayer {
 
   get _playable => _audioElem.readyState >= 3;
 
-  string _prettyTime(var time) {
-    var mins = (t / 60).floor().toString();
+  String _prettyTime(var time) {
+    var mins = (time / 60).floor().toString();
     if (mins[0] == '-') mins = '0'; // Negatives could happen?
 
-    var secs = (t.floor() % 60).round().toString();
+    var secs = (time.floor() % 60).round().toString();
     if (secs.length == 1) secs = '0' + secs;
 
     return mins + ':' + secs;
   }
 
-  /*
-  function getDuration() {
-    return document.getElementsByTagName("audio")[0].duration;
+  void _displayDuration(_) {
+    var dur = _audioElem.duration;
+    if (dur != null)
+      _curTimeDiv.query('#duration').innerHtml = _prettyTime(dur);
   }
 
-  function getCurrentTime() {
-    return document.getElementsByTagName("audio")[0].currentTime;
+  void _displayCurrentTime(_) {
+    var cur = _audioElem.currentTime;
+    if (cur != null)
+      _curTimeDiv.query('#curtime').innerHtml = _prettyTime(cur);
   }
-
-  function dispDuration() {
-    var d = getDuration();
-    if (d) document.getElementById("duration").innerHTML = prettyTime(d);
-  }
-
-  function dispCurrentTime() {
-    var c = getCurrentTime();
-    if (c) document.getElementById("curtime").innerHTML = prettyTime(c);
-  }
-
-  */
 }
