@@ -10,8 +10,8 @@ import 'audio_player.dart';
 final BLOCK_REMOVAL_TRANSITION_STYLE =  'margin  0.7s ease-in-out, '
                                         'opacity 0.7s ease-out';
 
-final SONG_INSERTION_TRANSITION_STYLE = 'margin  0.8s ease-in-out, '
-                                        'opacity 0.8s ease-in';
+final SONG_INSERTION_TRANSITION_STYLE = 'margin  0.7s ease-in-out, '
+                                        'opacity 0.7s ease-in';
 
 final PAGE_SCROLL_TRANSITION_STYLE =    'margin  0.4s ease-in-out';
 
