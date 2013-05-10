@@ -90,7 +90,7 @@ h1 {
 #curTrackTime {
   font-size: 30px;
   font-family:lcd;
-  color: #bbb;
+  color: #ccc;
   background: #333;
   text-align: center;
   width: 200px;
@@ -99,6 +99,7 @@ h1 {
   padding-top: 3px;
   padding-bottom: 3px;
   border-radius: 5px;
+  box-shadow: 0px 0px 10px #888;
 }
 
 #curTrackName {
