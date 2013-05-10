@@ -1,6 +1,7 @@
 library audio_player;
 
 import 'dart:html';
+import 'dart:uri';
 
 class AudioPlayer {
   bool audioSupported;
@@ -48,25 +49,30 @@ class AudioPlayer {
 
     _prevButton
       ..src = 'previous.png'
+      ..alt = 'previous'
       ..onClick.listen(prevCallback);
 
     var seekBack = new ImageElement()
       ..src = 'backward.png'
       ..title = 'Backward 10 seconds'
+      ..alt = 'back'
       ..onClick.listen(seekBackward);
 
     _playButton
       ..src = 'play-disabled.png'
       ..title = 'Song not ready'
+      ..alt = 'play'
       ..onClick.listen(togglePause);
 
     var seekForward = new ImageElement()
       ..src = 'forward.png'
       ..title = 'forward 10 seconds'
+      ..alt = 'forward'
       ..onClick.listen(seekForward);
 
     _nextButton
       ..src = 'next.png'
+      ..alt = 'next'
       ..onClick.listen(nextCallback);
 
     _controlsDiv.children
@@ -95,8 +101,8 @@ class AudioPlayer {
   void setSong(String name, String basename) {
     if (basename == null) basename = name;
 
-    _oggSource.src = _FILE_HOST + basename + '.ogg';
-    _mp3Source.src = _FILE_HOST + basename + '.mp3';
+    _oggSource.src = encodeUri(_FILE_HOST + basename + '.ogg');
+    _mp3Source.src = encodeUri(_FILE_HOST + basename + '.mp3');
     _audioElem.load();
 
     _curNameDiv.innerHtml = name;
@@ -121,12 +127,13 @@ class AudioPlayer {
   }
 
   void togglePause(_) {
-    isPaused() ? playCur() : pauseCur();
+    if (paused)
+      playCur();
+    else
+      pauseCur();
   }
 
-  void isPaused() {
-    return _audioElem.paused;
-  }
+  get paused => _audioElem.paused;
 
   void playCur() {
     _audioElem.play();
@@ -145,13 +152,13 @@ class AudioPlayer {
   }
 
   function nextSong() {
-    var shouldPlay = ! isPaused();
+    var shouldPlay = ! paused;
     setSong(_curIndex + 1);
     if (shouldPlay) playCur();
   }
 
   function prevSong() {
-    var shouldPlay = ! isPaused();
+    var shouldPlay = ! paused;
     setSong(_curIndex - 1);
     if (shouldPlay) playCur();
   }
@@ -160,7 +167,7 @@ class AudioPlayer {
     var src;
     var title = "Play";
 
-    if (! isPaused()) {
+    if (! paused) {
       src = "pause.png";
       title = "Pause";
     }
