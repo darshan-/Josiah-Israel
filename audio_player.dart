@@ -90,6 +90,14 @@ class AudioPlayer {
       ..add(_curTimeDiv)
       ..add(_audioElem)
       ..add(_controlsDiv);
+
+    _audioElem.onCanPlay.listen((_) => _updatePlayPauseButton());
+    _audioElem.onEnded.listen(_songEnded);
+    /*
+    au.addEventListener("durationchange", dispDuration, true);
+    au.addEventListener("timeupdate", dispCurrentTime, true);
+    */
+
   }
 
   void setPrev(String name) {
@@ -112,26 +120,21 @@ class AudioPlayer {
     _curNameDiv.innerHtml = name;
     _curTimeDiv.innerHtml = '<span id="curtime">0:00</span> / <span id="duration">0:00</span>';
 
-    /*
-    au.addEventListener("ended", nextAndPlay, true);
-    au.addEventListener("durationchange", dispDuration, true);
-    au.addEventListener("timeupdate", dispCurrentTime, true);
-    */
-
-    _audioElem.onCanPlay.listen((_) => _updatePlayPauseButton());
-
     _updatePlayPauseButton(); //Might have been ready before listener was set
 
     if (shouldPlay) playCur();
   }
 
-  void _nextSong(_) {
+  void _songEnded(_) {
+    _nextSong(_);
+    playCur();
+  }
 
+  void _nextSong(_) {
     if (nextSongCallback != null) nextSongCallback();
   }
 
   void _prevSong(_) {
-
     if (prevSongCallback != null) prevSongCallback();
   }
 
@@ -177,6 +180,16 @@ class AudioPlayer {
 
   get _playable => _audioElem.readyState >= 3;
 
+  string _prettyTime(var time) {
+    var mins = (t / 60).floor().toString();
+    if (mins[0] == '-') mins = '0'; // Negatives could happen?
+
+    var secs = (t.floor() % 60).round().toString();
+    if (secs.length == 1) secs = '0' + secs;
+
+    return mins + ':' + secs;
+  }
+
   /*
   function getDuration() {
     return document.getElementsByTagName("audio")[0].duration;
@@ -196,14 +209,5 @@ class AudioPlayer {
     if (c) document.getElementById("curtime").innerHTML = prettyTime(c);
   }
 
-  function prettyTime(t) {
-    var m = Math.floor(t / 60);
-    if (m < 0) m = "0";
-
-    var s = Math.round(Math.floor(t) % 60).toString();
-    if (s.length == 1) s = "0" + s;
-
-    return m + ":" + s;
-  }
   */
 }
