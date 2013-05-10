@@ -20,7 +20,7 @@ class AudioPlayer {
   var _oggSource = new SourceElement();
   var _mp3Source = new SourceElement();
 
-  boolean _checkAudioSupport() {
+  bool _checkAudioSupport() {
     var audio = new AudioElement();
 
     try {

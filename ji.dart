@@ -10,7 +10,9 @@ import 'audio_player.dart';
 final BLOCK_REMOVAL_TRANSITION_STYLE =  'margin  0.7s ease-in-out, '
                                         'opacity 0.7s ease-out';
 
-final SONG_INSERTION_TRANSITION_STYLE = 'opacity 0.8s ease-in';
+final SONG_INSERTION_TRANSITION_STYLE = 'margin  0.8s ease-in-out, '
+                                        'opacity 0.8s ease-in';
+
 final PAGE_SCROLL_TRANSITION_STYLE =    'margin  0.4s ease-in-out';
 
 var songQueue = new ListQueue();
@@ -33,7 +35,33 @@ void main() {
 }
 
 void prevSong(_) {
-  setTop(songQueue.last);
+  // TODO: Simplify / minimize code duplication with setTop?
+  var song = songQueue.removeLast();
+  var origDiv = song.div;
+  song.div = copySongDiv(origDiv);
+  song.div.query('.$SONG_NAME_SPAN_CLASS').onClick.listen((_) => setTop(song));
+
+  song.div.style.opacity = '0';
+  listDiv.children.insert(0, song.div);
+  song.div.style.marginTop = '-${song.div.clientHeight + 24}px'; // (24 = .song-info marginBottom)
+  songQueue.addFirst(song);
+
+  new Timer(new Duration(milliseconds: 25), () {
+      origDiv.style.transition = BLOCK_REMOVAL_TRANSITION_STYLE;
+      origDiv.style.opacity = '0';
+
+      song.div.style.transition = SONG_INSERTION_TRANSITION_STYLE;
+      song.div.style.marginTop = '0px';
+      song.div.style.opacity = '1';
+    });
+
+  new Timer(new Duration(milliseconds: 400), () {
+      player.setSong(songQueue.first.info['name'], songQueue.first.info['basename']);
+    });
+
+  new Timer(new Duration(milliseconds: 800), () {
+      origDiv.remove();
+    });
 }
 
 void nextSong(_) {
@@ -62,7 +90,7 @@ void setTop(newTop) {
   }
 
   // You'd think instant feedback would be better, but it actually seems nicer to
-  //  wait for the slide effect to finish...
+  //  wait for the slide effect to finish, or at least make it half way.
   //player.setSong(songQueue.first.info['name'], songQueue.first.info['basename']);
 
   listDiv.children.insert(0, removalDiv);
