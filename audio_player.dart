@@ -8,16 +8,17 @@ class AudioPlayer {
   final _FILE_HOST = "http://darshancomputing.s3.amazonaws.com/JosiahIsrael/";
 
   var _playerArea;
-  var _curNameDiv = new DivElement();
-  var _curTimeDiv = new DivElement();
-  var _controlsDiv = new DivElement();
+
+  var _curNameDiv = new DivElement()..id = 'curTrackName';
+  var _curTimeDiv = new DivElement()..id = 'curTrackTime';
+  var _controlsDiv = new DivElement()..id = 'controls';
+  var _prevButton = new ImageElement();
+  var _playButton = new ImageElement();
+  var _nextButton = new ImageElement();
 
   var _audioElem = new AudioElement();
   var _oggSource = new SourceElement();
   var _mp3Source = new SourceElement();
-
-  var _songs;
-  var _curIndex;
 
   boolean _checkAudioSupport() {
     var audio = new AudioElement();
@@ -35,10 +36,8 @@ class AudioPlayer {
     }
   }
 
-  AudioPlayer(List<String> songNames) {
+  AudioPlayer(void prevCallback(_), void nextCallback(_)) {
     _checkAudioSupport();
-
-    _songs = songNames;
 
     _playerArea = query('#player-area');
 
@@ -47,33 +46,54 @@ class AudioPlayer {
     _audioElem.children.add(_oggSource);
     _audioElem.children.add(_mp3Source);
 
+    _prevButton
+      ..src = 'previous.png'
+      ..onClick.listen(prevCallback);
+
+    var seekBack = new ImageElement()
+      ..src = 'backward.png'
+      ..title = 'Backward 10 seconds'
+      ..onClick.listen(seekBackward);
+
+    _playButton
+      ..src = 'play-disabled.png'
+      ..title = 'Song not ready'
+      ..onClick.listen(togglePause);
+
+    var seekForward = new ImageElement()
+      ..src = 'forward.png'
+      ..title = 'forward 10 seconds'
+      ..onClick.listen(seekForward);
+
+    _nextButton
+      ..src = 'next.png'
+      ..onClick.listen(nextCallback);
+
+    _controlsDiv.children
+      ..add(_prevButton)
+      ..add(seekBack)
+      ..add(_playButton)
+      ..add(seekForward)
+      ..add(_nextButton);
+
     _playerArea.children
       ..clear()
       ..add(_curNameDiv)
       ..add(_curTimeDiv)
       ..add(_audioElem)
       ..add(_controlsDiv);
-
-    setSong(0);
   }
 
-  void setSong(int index) {
-    if (index >= _songs.length) index = 0;
-    if (index < 0) index = _songs.length - 1;
+  void setPrev(String name) {
+    _prevButton.title = 'Previous: $name';
+  }
 
-    _curIndex = index;
+  void setNext(String name) {
+    _nextButton.title = 'Next: $name';
+  }
 
-    var prevIndex = index - 1;
-    if (prevIndex < 0) prevIndex = _songs.length - 1;
-
-    var nextIndex = index + 1;
-    if (nextIndex >= _songs.length) nextIndex = 0;
-
-    var name = _songs[index]['name'];
-    var basename = _songs[index]['basename'];
+  void setSong(String name, String basename) {
     if (basename == null) basename = name;
-    var prevName = _songs[prevIndex]['name'];
-    var nextName = _songs[nextIndex]['name'];
 
     _oggSource.src = _FILE_HOST + basename + '.ogg';
     _mp3Source.src = _FILE_HOST + basename + '.mp3';
@@ -81,14 +101,6 @@ class AudioPlayer {
 
     _curNameDiv.innerHtml = name;
     _curTimeDiv.innerHtml = '<span id="curtime">0:00</span> / <span id="duration">0:00</span>';
-
-    _controlsDiv.innerHtml = '''
-    <img title="Previous: $prevName " onClick="prevSong()" src="previous.png" />\
-    <img title="Backward 10 seconds" onClick="seekBackward()" src="backward.png" />\
-    <img title="Play" onClick="togglePause()" src="play-disabled.png" id="playpause_b" />\
-    <img title="Forward 10 seconds" onClick="seekForward()" src="forward.png" />\
-    <img title="Next: $nextName " onClick="nextSong()" src="next.png" />
-''';
 
     /*
     au.addEventListener("ended", nextAndPlay, true);
@@ -98,6 +110,32 @@ class AudioPlayer {
 
     updatePlayPauseButton(); //Might have been ready before listener was set
     */
+  }
+
+  void seekForward(_) {
+    _audioElem.currentTime += 10;
+  }
+
+  void seekBackward(_) {
+    _audioElem.currentTime -= 10;
+  }
+
+  void togglePause(_) {
+    isPaused() ? playCur() : pauseCur();
+  }
+
+  void isPaused() {
+    return _audioElem.paused;
+  }
+
+  void playCur() {
+    _audioElem.play();
+    //updatePlayPauseButton();
+  }
+
+  void pauseCur() {
+    _audioElem.pause();
+    //updatePlayPauseButton();
   }
 
   /*
@@ -118,24 +156,6 @@ class AudioPlayer {
     if (shouldPlay) playCur();
   }
 
-  function pauseCur() {
-    document.getElementsByTagName("audio")[0].pause();
-    updatePlayPauseButton();
-  }
-
-  function playCur() {
-    document.getElementsByTagName("audio")[0].play();
-    updatePlayPauseButton();
-  }
-
-  function seekForward() {
-    document.getElementsByTagName("audio")[0].currentTime += 10;
-  }
-
-  function seekBackward() {
-    document.getElementsByTagName("audio")[0].currentTime -= 10;
-  }
-
   function updatePlayPauseButton() {
     var src;
     var title = "Play";
@@ -149,14 +169,6 @@ class AudioPlayer {
 
     document.getElementById("playpause_b").src = src;
     document.getElementById("playpause_b").title = title;
-  }
-
-  function togglePause() {
-    isPaused() ? playCur() : pauseCur();
-  }
-
-  function isPaused() {
-    return document.getElementsByTagName("audio")[0].paused;
   }
 
   function isPlayable() {

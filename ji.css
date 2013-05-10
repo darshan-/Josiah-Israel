@@ -84,13 +84,13 @@ h1 {
   margin-right: 35px;
 }
 
-#curtracktime {
+#curTrackTime {
   font-size: 30px;
   font-family:lcd;
   margin-bottom: 10px;
 }
 
-#curtrackname {
+#curTrackName {
   font-weight: bold;
   color: #449;
   margin-bottom: 10px;

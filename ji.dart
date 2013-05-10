@@ -13,42 +13,57 @@ final BLOCK_REMOVAL_TRANSITION_STYLE =  'margin  0.7s ease-in-out, '
 final SONG_INSERTION_TRANSITION_STYLE = 'opacity 0.8s ease-in';
 final PAGE_SCROLL_TRANSITION_STYLE =    'margin  0.4s ease-in-out';
 
-var song_queue = new ListQueue();
+var songQueue = new ListQueue();
 var listDiv = query('#song-list');
 var player;
 
 void main() {
   fillSongQueue();
 
-  for (var p in song_queue) {
-    listDiv.children.add(p);
-    p.query('.$SONG_NAME_SPAN_CLASS').onClick.listen((_) => setTop(p));
+  for (var song in songQueue) {
+    listDiv.children.add(song.div);
+    song.div.query('.$SONG_NAME_SPAN_CLASS').onClick.listen((_) => setTop(song));
   }
 
   listDiv.style.height = '${listDiv.clientHeight + 30}px';
   listDiv.style.overflow = 'hidden';
 
-  player = new AudioPlayer(songNames());
+  player = new AudioPlayer(prevSong, nextSong);
+  player.setSong(songQueue.first.info['name'], songQueue.first.info['basename']);
+}
+
+void prevSong(_) {
+  setTop(songQueue.last);
+}
+
+void nextSong(_) {
+  var nextIndex = songQueue.length > 1 ? 1 : 0;
+  setTop(songQueue.elementAt(nextIndex));
 }
 
 void setTop(newTop) {
-  if (song_queue.first == newTop) return;
+  if (songQueue.first == newTop) return;
 
   var removalDiv = new DivElement();
 
-  while (song_queue.first != newTop) {
-    var orig = song_queue.removeFirst();
-    var copy = copySongDiv(orig);
-    copy.query('.$SONG_NAME_SPAN_CLASS').onClick.listen((_) => setTop(copy));
+  while (songQueue.first != newTop) {
+    var song = songQueue.removeFirst();
+    var origDiv = song.div;
+    song.div = copySongDiv(origDiv);
+    song.div.query('.$SONG_NAME_SPAN_CLASS').onClick.listen((_) => setTop(song));
 
-    orig.remove();
-    removalDiv.children.add(orig);
+    origDiv.remove();
+    removalDiv.children.add(origDiv);
 
-    copy.style.transition = SONG_INSERTION_TRANSITION_STYLE;
-    copy.style.opacity = '0';
-    listDiv.children.add(copy);
-    song_queue.addLast(copy);
+    song.div.style.transition = SONG_INSERTION_TRANSITION_STYLE;
+    song.div.style.opacity = '0';
+    listDiv.children.add(song.div);
+    songQueue.addLast(song);
   }
+
+  // You'd think instant feedback would be better, but it actually seems nicer to
+  //  wait for the slide effect to finish...
+  //player.setSong(songQueue.first.info['name'], songQueue.first.info['basename']);
 
   listDiv.children.insert(0, removalDiv);
 
@@ -58,21 +73,24 @@ void setTop(newTop) {
       removalDiv.style.transition = BLOCK_REMOVAL_TRANSITION_STYLE;
       removalDiv.style.opacity = '0';
       removalDiv.style.marginTop = '-${removalDiv.clientHeight + 24}px'; // (24 = .song-info marginBottom)
-      for (var p in song_queue) {
-        p.style.opacity = '1';
+      for (var song in songQueue) {
+        song.div.style.opacity = '1';
       }
     });
 
+  new Timer(new Duration(milliseconds: 400), () {
+      player.setSong(songQueue.first.info['name'], songQueue.first.info['basename']);
+    });
+
   new Timer(new Duration(milliseconds: 800), () {
+      //player.setSong(songQueue.first.info['name'], songQueue.first.info['basename']);
       removalDiv.remove();
     });
 }
 
 void fillSongQueue() {
-  for (var song in songs) {
-    var div = divFromSong(song);
-    div.style.opacity = '1';
-    song_queue.addLast(div);
+  for (var info in SONG_INFOS) {
+    songQueue.addLast(new Song(info));
   }
 }
 
@@ -94,13 +112,4 @@ void scrollToTop() {
       document.body.style.marginTop = '0';
       document.body.style.transition = PAGE_SCROLL_TRANSITION_STYLE;
     });
-}
-
-List<Map> songNames() {
-  List<Map> names = [];
-
-  for (var song in songs)
-    names.add({'name' : song['name'], 'basename' : song['basename']});
-
-  return names;
 }

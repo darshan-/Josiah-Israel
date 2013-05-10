@@ -7,9 +7,9 @@ import 'dart:html';
 final SONG_INFO_DIV_CLASS  = 'song-info';
 final SONG_NAME_SPAN_CLASS = 'songname';
 
-var flags = ['drums', 'keyboard', 'vocals', 'guitar', 'violin'];
+final FLAGS = ['drums', 'keyboard', 'vocals', 'guitar', 'violin'];
 
-var songs =
+final SONG_INFOS =
   [
    {
    'name' : "Too Much For One Heart",
@@ -415,28 +415,34 @@ String _prettifyDate(s) {
   return ret;
 }
 
-DivElement divFromSong(song) {
-  var div = new DivElement();
-  div.classes.add(SONG_INFO_DIV_CLASS);
-
-  var desc = song['description'];
-  if (! desc.contains('<p>'))
-    desc = '<p>$desc</p>';
-
-  var header =
-    '<p><span class="$SONG_NAME_SPAN_CLASS">${song["name"]}</span>'
-    ' - '
-    '<i>${_prettifyDate(song["date"])}</i></p>\n';
-
-  div.innerHtml = header + desc;
-
-  return div;
-}
-
 DivElement copySongDiv(orig) {
   var copy = new DivElement();
   copy.innerHtml = orig.innerHtml;
   copy.classes = orig.classes.toList();
   copy.style.opacity = orig.style.opacity;
   return copy;
+}
+
+class Song {
+  var div;
+  var info;
+
+  Song(Map songInfo) {
+    info = songInfo;
+
+    div = new DivElement();
+    div.classes.add(SONG_INFO_DIV_CLASS);
+    div.style.opacity = '1';
+
+    var desc = info['description'];
+    if (! desc.contains('<p>'))
+      desc = '<p>$desc</p>';
+
+    var header =
+      '<p><span class="$SONG_NAME_SPAN_CLASS">${info["name"]}</span>'
+      ' - '
+      '<i>${_prettifyDate(info["date"])}</i></p>\n';
+
+    div.innerHtml = header + desc;
+  }
 }
