@@ -24,22 +24,24 @@ void main() {
 
   for (var song in songQueue) {
     listDiv.children.add(song.div);
-    song.div.query('.$SONG_NAME_SPAN_CLASS').onClick.listen((_) => setTop(song));
+    song.div.query('.$SONG_NAME_SPAN_CLASS').onClick.listen((_) => playSong(song));
   }
 
   listDiv.style.height = '${listDiv.clientHeight + 30}px';
   listDiv.style.overflow = 'hidden';
 
-  player = new AudioPlayer(prevSong, nextSong);
+  player = new AudioPlayer();
+  player.prevSongCallback = prevSong;
+  player.nextSongCallback = nextSong;
   player.setSong(songQueue.first.info['name'], songQueue.first.info['basename']);
 }
 
-void prevSong(_) {
+void prevSong() {
   // TODO: Simplify / minimize code duplication with setTop?
   var song = songQueue.removeLast();
   var origDiv = song.div;
   song.div = copySongDiv(origDiv);
-  song.div.query('.$SONG_NAME_SPAN_CLASS').onClick.listen((_) => setTop(song));
+  song.div.query('.$SONG_NAME_SPAN_CLASS').onClick.listen((_) => playSong(song));
 
   song.div.style.opacity = '0';
   listDiv.children.insert(0, song.div);
@@ -64,9 +66,14 @@ void prevSong(_) {
     });
 }
 
-void nextSong(_) {
+void nextSong() {
   var nextIndex = songQueue.length > 1 ? 1 : 0;
   setTop(songQueue.elementAt(nextIndex));
+}
+
+void playSong(song) {
+  setTop(song);
+  player.playCur();
 }
 
 void setTop(newTop) {
@@ -78,7 +85,7 @@ void setTop(newTop) {
     var song = songQueue.removeFirst();
     var origDiv = song.div;
     song.div = copySongDiv(origDiv);
-    song.div.query('.$SONG_NAME_SPAN_CLASS').onClick.listen((_) => setTop(song));
+    song.div.query('.$SONG_NAME_SPAN_CLASS').onClick.listen((_) => playSong(song));
 
     origDiv.remove();
     removalDiv.children.add(origDiv);

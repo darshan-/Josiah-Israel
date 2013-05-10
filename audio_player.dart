@@ -4,10 +4,12 @@ import 'dart:html';
 import 'dart:uri';
 
 class AudioPlayer {
-  bool audioSupported;
+  var prevSongCallback;
+  var nextSongCallback;
 
   final _FILE_HOST = "http://darshancomputing.s3.amazonaws.com/JosiahIsrael/";
 
+  bool _audioSupported;
   var _playerArea;
 
   var _curNameDiv = new DivElement()..id = 'curTrackName';
@@ -28,16 +30,16 @@ class AudioPlayer {
       var oggSupport = audio.canPlayType('audio/ogg', '');
       var mp3Support = audio.canPlayType('audio/mpeg', '');
 
-      audioSupported = (oggSupport == "probably" ||
+      _audioSupported = (oggSupport == "probably" ||
                         mp3Support == "probably" ||
                         oggSupport == "maybe" ||
                         mp3Support == "maybe");
     } catch (e) {
-      audioSupported = false;
+      _audioSupported = false;
     }
   }
 
-  AudioPlayer(void prevCallback(_), void nextCallback(_)) {
+  AudioPlayer() {
     _checkAudioSupport();
 
     _playerArea = query('#player-area');
@@ -50,30 +52,30 @@ class AudioPlayer {
     _prevButton
       ..src = 'previous.png'
       ..alt = 'previous'
-      ..onClick.listen(prevCallback);
+      ..onClick.listen(_prevSong);
 
     var seekBack = new ImageElement()
       ..src = 'backward.png'
       ..title = 'Backward 10 seconds'
       ..alt = 'back'
-      ..onClick.listen(seekBackward);
+      ..onClick.listen(_seekBackward);
 
     _playButton
       ..src = 'play-disabled.png'
-      ..title = 'Song not ready'
-      ..alt = 'play'
-      ..onClick.listen(togglePause);
+      ..title = 'Not ready'
+      ..alt = 'play/pause'
+      ..onClick.listen(_togglePause);
 
     var seekForward = new ImageElement()
       ..src = 'forward.png'
       ..title = 'forward 10 seconds'
       ..alt = 'forward'
-      ..onClick.listen(seekForward);
+      ..onClick.listen(_seekForward);
 
     _nextButton
       ..src = 'next.png'
       ..alt = 'next'
-      ..onClick.listen(nextCallback);
+      ..onClick.listen(_nextSong);
 
     _controlsDiv.children
       ..add(_prevButton)
@@ -99,6 +101,8 @@ class AudioPlayer {
   }
 
   void setSong(String name, String basename) {
+    var shouldPlay = !_paused;
+
     if (basename == null) basename = name;
 
     _oggSource.src = encodeUri(_FILE_HOST + basename + '.ogg');
@@ -112,76 +116,68 @@ class AudioPlayer {
     au.addEventListener("ended", nextAndPlay, true);
     au.addEventListener("durationchange", dispDuration, true);
     au.addEventListener("timeupdate", dispCurrentTime, true);
-    au.addEventListener("canplay", updatePlayPauseButton, true);
-
-    updatePlayPauseButton(); //Might have been ready before listener was set
     */
+
+    _audioElem.onCanPlay.listen((_) => _updatePlayPauseButton());
+
+    _updatePlayPauseButton(); //Might have been ready before listener was set
+
+    if (shouldPlay) playCur();
   }
 
-  void seekForward(_) {
+  void _nextSong(_) {
+
+    if (nextSongCallback != null) nextSongCallback();
+  }
+
+  void _prevSong(_) {
+
+    if (prevSongCallback != null) prevSongCallback();
+  }
+
+  void _seekForward(_) {
     _audioElem.currentTime += 10;
   }
 
-  void seekBackward(_) {
+  void _seekBackward(_) {
     _audioElem.currentTime -= 10;
   }
 
-  void togglePause(_) {
-    if (paused)
+  void _togglePause(_) {
+    if (_paused)
       playCur();
     else
-      pauseCur();
+      _pauseCur();
   }
 
-  get paused => _audioElem.paused;
+  get _paused => _audioElem.paused;
 
   void playCur() {
     _audioElem.play();
-    //updatePlayPauseButton();
+    _updatePlayPauseButton();
   }
 
-  void pauseCur() {
+  void _pauseCur() {
     _audioElem.pause();
-    //updatePlayPauseButton();
+    _updatePlayPauseButton();
   }
+
+  void _updatePlayPauseButton() {
+    if (! _paused) {
+      _playButton.src = 'pause.png';
+      _playButton.title = 'Pause';
+    } else if (_playable) {
+      _playButton.src = 'play.png';
+      _playButton.title = 'Play';
+    } else {
+      _playButton.src = 'play-disabled.png';
+      _playButton.title = 'Not ready';
+    }
+  }
+
+  get _playable => _audioElem.readyState >= 3;
 
   /*
-  function nextAndPlay() {
-    setSong(_curIndex + 1);
-    playCur();
-  }
-
-  function nextSong() {
-    var shouldPlay = ! paused;
-    setSong(_curIndex + 1);
-    if (shouldPlay) playCur();
-  }
-
-  function prevSong() {
-    var shouldPlay = ! paused;
-    setSong(_curIndex - 1);
-    if (shouldPlay) playCur();
-  }
-
-  function updatePlayPauseButton() {
-    var src;
-    var title = "Play";
-
-    if (! paused) {
-      src = "pause.png";
-      title = "Pause";
-    }
-    else if (isPlayable()) src = "play.png";
-    else src = "play-disabled.png";
-
-    document.getElementById("playpause_b").src = src;
-    document.getElementById("playpause_b").title = title;
-  }
-
-  function isPlayable() {
-    return (document.getElementsByTagName("audio")[0].readyState >= 3);
-  }
-
   function getDuration() {
     return document.getElementsByTagName("audio")[0].duration;
   }
