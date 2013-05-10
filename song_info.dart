@@ -374,7 +374,7 @@ should record at some point.
    },
 ];
 
-String prettifyDate(s) {
+String _prettifyDate(s) {
   var months = {
     "01" : "January",
     "02" : "February",
@@ -426,7 +426,7 @@ DivElement divFromSong(song) {
   var header =
     '<p><span class="$SONG_NAME_SPAN_CLASS">${song["name"]}</span>'
     ' - '
-    '<i>${prettifyDate(song["date"])}</i></p>\n';
+    '<i>${_prettifyDate(song["date"])}</i></p>\n';
 
   div.innerHtml = header + desc;
 
