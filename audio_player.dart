@@ -114,7 +114,7 @@ class AudioPlayer {
     _mp3Source.src = encodeUri(_FILE_HOST + basename + '.mp3');
     _audioElem.load();
 
-    _curNameDiv.innerHtml = name;
+    _curNameDiv.text = name;
     _curTimeDiv.innerHtml = '<span id="curtime">0:00</span> / <span id="duration">0:00</span>';
 
     _updatePlayPauseButton(); //Might have been ready before listener was set
@@ -190,12 +190,12 @@ class AudioPlayer {
   void _displayDuration(_) {
     var dur = _audioElem.duration;
     if (dur != null)
-      _curTimeDiv.query('#duration').innerHtml = _prettyTime(dur);
+      _curTimeDiv.query('#duration').text = _prettyTime(dur);
   }
 
   void _displayCurrentTime(_) {
     var cur = _audioElem.currentTime;
     if (cur != null)
-      _curTimeDiv.query('#curtime').innerHtml = _prettyTime(cur);
+      _curTimeDiv.query('#curtime').text = _prettyTime(cur);
   }
 }
