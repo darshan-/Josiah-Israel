@@ -15,9 +15,10 @@ class AudioPlayer {
   var _curNameDiv = new DivElement()..id = 'curTrackName';
   var _curTimeDiv = new DivElement()..id = 'curTrackTime';
   var _controlsDiv = new DivElement()..id = 'controls';
-  var _prevButton = new ImageElement();
-  var _playButton = new ImageElement();
-  var _nextButton = new ImageElement();
+
+  var _prevButton = new DivElement()..classes.add('skip')..classes.add('left');
+  var _playButton = new DivElement()..id = 'play';
+  var _nextButton = new DivElement()..classes.add('skip')..classes.add('right');
 
   var _audioElem = new AudioElement();
   var _oggSource = new SourceElement();
@@ -50,31 +51,34 @@ class AudioPlayer {
     _audioElem.children.add(_mp3Source);
 
     _prevButton
-      ..src = 'previous.png'
-      ..alt = 'previous'
+      ..children.add(new DivElement())
+      ..children.add(new DivElement())
       ..onClick.listen(_prevSong);
 
-    var seekBack = new ImageElement()
-      ..src = 'backward.png'
+    var seekBack = new DivElement()
+      ..classes.add('seek')
+      ..classes.add('left')
+      ..children.add(new DivElement())
+      ..children.add(new DivElement())
       ..title = 'Backward 10 seconds'
-      ..alt = 'back'
       ..onClick.listen(_seekBackward);
 
     _playButton
-      ..src = 'play-disabled.png'
+      ..children.add(new DivElement())
       ..title = 'Not ready'
-      ..alt = 'play/pause'
       ..onClick.listen(_togglePause);
 
-    var seekForward = new ImageElement()
-      ..src = 'forward.png'
+    var seekForward = new DivElement()
+      ..classes.add('seek')
+      ..classes.add('right')
+      ..children.add(new DivElement())
+      ..children.add(new DivElement())
       ..title = 'Forward 10 seconds'
-      ..alt = 'forward'
       ..onClick.listen(_seekForward);
 
     _nextButton
-      ..src = 'next.png'
-      ..alt = 'next'
+      ..children.add(new DivElement())
+      ..children.add(new DivElement())
       ..onClick.listen(_nextSong);
 
     _controlsDiv.children
@@ -136,11 +140,13 @@ class AudioPlayer {
   }
 
   void _seekForward(_) {
-    _audioElem.currentTime += 10;
+    if (_playable)
+      _audioElem.currentTime += 10;
   }
 
   void _seekBackward(_) {
-    _audioElem.currentTime -= 10;
+    if (_playable)
+      _audioElem.currentTime -= 10;
   }
 
   void _togglePause(_) {
@@ -163,6 +169,7 @@ class AudioPlayer {
   }
 
   void _updatePlayPauseButton() {
+    return;
     if (! _paused) {
       _playButton.src = 'pause.png';
       _playButton.title = 'Pause';

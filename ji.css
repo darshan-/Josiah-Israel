@@ -157,9 +157,18 @@ p {
   margin-bottom: 24px;
 }
 
-#controls img{
-  margin-left: 12px;
-  margin-right: 12px;
+#controls {
+  height: 45px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#controls>div{
+  display: inline-block;
+  vertical-align: middle;
+
+  margin-left: 10px;
+  margin-right: 10px;
   padding: 5px;
   cursor: pointer;
 
@@ -170,17 +179,85 @@ p {
   border: 1px solid #bbb;
 
   box-shadow: 1px 1px 1px #333;
-  /*width: 26px;
-  height: 21px;*/
 }
 
-#controls img:hover{
+#controls #play {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+#controls .seek {
+  width: 22px;
+  height: 14px;
+  border-radius: 30%;
+}
+
+#controls .skip {
+  width: 32px;
+  height: 18px;
+  border-radius: 40%;
+}
+
+#controls>#play>div {
+  margin-top: 3px;
+  margin-left: 7px;
+
+  display: inline-block;
+
+  width: 0;
+  height: 0;
+  border-top   : 15px solid transparent;
+  border-bottom: 15px solid transparent;
+
+  border-left : 23px solid black;
+}
+
+#controls>.seek>div {
+  display: inline-block;
+
+  width: 0;
+  height: 0;
+  border-top   : 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+
+#controls>.seek.right>div {
+  border-left : 10px solid black;
+  margin-left: 1px;
+}
+
+#controls>.seek.left>div {
+  border-right : 10px solid black;
+  margin-right: 1px;
+}
+
+#controls>.skip>div {
+  display: inline-block;
+
+  width: 0;
+  height: 0;
+  border-top   : 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+#controls>.skip.right>div {
+  border-left : 13px solid black;
+  margin-left: 2px;
+}
+
+#controls>.skip.left>div {
+  border-right : 13px solid black;
+  margin-right: 2px;
+}
+
+#controls>div:hover {
   background-color: #fbfbfb;
 }
 
-#controls img:active{
-  margin-left: 13px;
-  margin-right: 11px;
+#controls>div:active {
+  margin-left: 11px;
+  margin-right: 9px;
   margin-top: 1px;
   margin-bottom: -1px;
   box-shadow: -1px -1px 1px #333;
