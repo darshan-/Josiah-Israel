@@ -68,7 +68,7 @@ class AudioPlayer {
 
     var seekForward = new ImageElement()
       ..src = 'forward.png'
-      ..title = 'forward 10 seconds'
+      ..title = 'Forward 10 seconds'
       ..alt = 'forward'
       ..onClick.listen(_seekForward);
 

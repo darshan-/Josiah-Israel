@@ -33,7 +33,7 @@ void main() {
   player = new AudioPlayer();
   player.prevSongCallback = prevSong;
   player.nextSongCallback = nextSong;
-  player.setSong(songQueue.first.info['name'], songQueue.first.info['basename']);
+  updatePlayer();
 }
 
 void prevSong() {
@@ -58,7 +58,7 @@ void prevSong() {
     });
 
   new Timer(new Duration(milliseconds: 400), () {
-      player.setSong(songQueue.first.info['name'], songQueue.first.info['basename']);
+      updatePlayer();
     });
 
   new Timer(new Duration(milliseconds: 800), () {
@@ -114,13 +114,19 @@ void setTop(newTop) {
     });
 
   new Timer(new Duration(milliseconds: 400), () {
-      player.setSong(songQueue.first.info['name'], songQueue.first.info['basename']);
+      updatePlayer();
     });
 
   new Timer(new Duration(milliseconds: 800), () {
       //player.setSong(songQueue.first.info['name'], songQueue.first.info['basename']);
       removalDiv.remove();
     });
+}
+
+void updatePlayer() {
+  player.setSong(songQueue.first.info['name'], songQueue.first.info['basename']);
+  player.setPrev(songQueue.last.info['name']);
+  player.setNext(songQueue.elementAt(1).info['name']);
 }
 
 void fillSongQueue() {
