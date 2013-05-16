@@ -186,7 +186,7 @@ p#intro {
   background: #daeef2;
   border-radius: 8px;
   box-shadow: 1px 1px 5px #333;
-  /*display: none;*/
+  display: none;
 }
 
 .song-info p {
@@ -223,9 +223,23 @@ p#intro {
 
   box-shadow: 1px 1px 1px black;
 
-  background: -webkit-linear-gradient(bottom, #ccc, #fff);
-  background:    -moz-linear-gradient(bottom, #ccc, #fff);
-  background:         linear-gradient(bottom, #ccc, #fff);
+  background: -webkit-linear-gradient(bottom, #999, #fff);
+  background:    -moz-linear-gradient(bottom, #999, #fff);
+  background:         linear-gradient(bottom, #999, #fff);
+}
+
+#controls>div:hover {
+  background: -webkit-linear-gradient(bottom, #ddd, #fff);
+  background:    -moz-linear-gradient(bottom, #ddd, #fff);
+  background:         linear-gradient(bottom, #ddd, #fff);
+}
+
+#controls>div:active {
+  margin-left: 17px;
+  margin-right: 15px;
+  margin-top: 1px;
+  margin-bottom: -1px;
+  box-shadow: -1px -1px 1px black;
 }
 
 #controls #play {
@@ -243,12 +257,12 @@ p#intro {
 }
 
 #controls .skip {
-  width: 38px;
+  width: 46px;
   height: 18px;
   border-radius: 30%;
 }
 
-#controls>#play>div {
+#controls>#play>div.triangle {
   margin-top: 3px;
   margin-left: 7px;
 
@@ -262,7 +276,20 @@ p#intro {
   border-left : 23px solid black;
 }
 
-#controls>.seek>div {
+#controls>#play>div.bars {
+  display: inline-block;
+  margin-left: 0px;
+  margin-top: 5px;
+
+  width: 11px;
+  height: 28px;
+  border-top-width: 0px;
+  border-bottom-width: 0px;
+  border-left: 8px solid #222;
+  border-right: 8px solid #222;
+}
+
+#controls>.seek>div.triangle {
   display: inline-block;
   vertical-align: middle;
 
@@ -274,47 +301,47 @@ p#intro {
   border-bottom: 6px solid transparent;
 }
 
-#controls>.seek.right>div {
+#controls>.seek.right>div.triangle {
   border-left : 10px solid black;
   margin-left: 1px;
 }
 
-#controls>.seek.left>div {
+#controls>.seek.left>div.triangle {
   border-right : 10px solid black;
   margin-right: 1px;
 }
 
-#controls>.skip>div {
+#controls>.skip>div.triangle {
   display: inline-block;
+  margin-bottom: 3px;
 
   width: 0;
   height: 0;
-  border-top   : 10px solid transparent;
-  border-bottom: 10px solid transparent;
+  border-top   : 8px solid transparent;
+  border-bottom: 8px solid transparent;
 }
 
-#controls>.skip.right>div {
-  border-left : 16px solid black;
+#controls>.skip>div.bar {
+  display: inline-block;
+  margin-bottom: 3px;
+
+  width: 0px;
+  height: 17px;
+  border-left: 5px solid black;
+}
+
+#controls>.skip.right>div.triangle {
+  border-left: 16px solid black;
   margin-left: 2px;
 }
 
-#controls>.skip.left>div {
-  border-right : 16px solid black;
+#controls>.skip.left>div.triangle {
+  border-right : 16px solid #222;
   margin-right: 2px;
 }
 
-#controls>div:hover {
-  background: -webkit-linear-gradient(bottom, #e2e2e2, #fff);
-  background:    -moz-linear-gradient(bottom, #e2e2e2, #fff);
-  background:         linear-gradient(bottom, #e2e2e2, #fff);
-}
-
-#controls>div:active {
-  margin-left: 17px;
-  margin-right: 15px;
-  margin-top: 1px;
-  margin-bottom: -1px;
-  box-shadow: -1px -1px 1px black;
+#controls>.skip.left.disabled>div.triangle {
+  border-right-color: #333;
 }
 
 #copyright {

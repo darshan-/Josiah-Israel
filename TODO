@@ -1,7 +1,8 @@
-bar for skip buttons
-updatePlayPauseButton
-pause image
+pause button
+disabled play button (and seek and skip buttons?)
+updatePlayPauseButton()
 Slide in new song title from right
   slide old song title to left
   Use same timing as sliding song info
     (rather than changing instantly in the middle of that transition)
+  Or slide up
