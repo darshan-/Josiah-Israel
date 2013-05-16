@@ -18,8 +18,8 @@ h3, h4, h5
   left: 50%;
   margin-left: -313px;
 
-  border-radius: 15px;
-  border: 1px solid black;
+  border-radius: 5px;
+  border: 2px solid #57a;
 
   padding: 12px;
 
@@ -206,6 +206,18 @@ p#intro {
   height: 45px;
   margin-top: 5px;
   margin-bottom: 5px;
+
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+
+  -moz-user-drag: none;
+  -khtml-user-drag: none;
+  -webkit-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
 }
 
 #controls>div{

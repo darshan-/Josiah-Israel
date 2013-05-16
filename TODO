@@ -6,3 +6,7 @@ Slide in new song title from right
   Use same timing as sliding song info
     (rather than changing instantly in the middle of that transition)
   Or slide up
+
+Listen for page zoom-in / -out and reflow content
+  This is necessary because you hard-code the content height
+   after adding song list
