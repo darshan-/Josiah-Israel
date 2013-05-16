@@ -273,16 +273,20 @@ p#intro {
   border-top   : 15px solid transparent;
   border-bottom: 15px solid transparent;
 
-  border-left : 23px solid black;
+  border-left : 23px solid #222;
+}
+
+#controls>#play>div.triangle.disabled {
+  border-left : 23px solid #777;
 }
 
 #controls>#play>div.bars {
   display: inline-block;
   margin-left: 0px;
-  margin-top: 5px;
+  margin-top: 6px;
 
-  width: 11px;
-  height: 28px;
+  width: 9px;
+  height: 26px;
   border-top-width: 0px;
   border-bottom-width: 0px;
   border-left: 8px solid #222;
