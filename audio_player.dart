@@ -16,9 +16,9 @@ class AudioPlayer {
   var _curTimeDiv = new DivElement()..id = 'curTrackTime';
   var _controlsDiv = new DivElement()..id = 'controls';
 
-  var _prevButton = new ButtonElement()..classes.add('skip')..classes.add('left');
-  var _playButton = new ButtonElement()..id = 'play';
-  var _nextButton = new ButtonElement()..classes.add('skip')..classes.add('right');
+  var _prevButton = new DivElement()..classes.add('skip')..classes.add('left');
+  var _playButton = new DivElement()..id = 'play';
+  var _nextButton = new DivElement()..classes.add('skip')..classes.add('right');
 
   var _audioElem = new AudioElement();
   var _oggSource = new SourceElement();
@@ -51,36 +51,36 @@ class AudioPlayer {
     _audioElem.children.add(_mp3Source);
 
     _prevButton
-      ..children.add(new SpanElement()..classes.add('bar'))
-      ..children.add(new SpanElement()..classes.add('triangle'))
-      ..children.add(new SpanElement()..classes.add('triangle'))
+      ..children.add(new DivElement()..classes.add('bar'))
+      ..children.add(new DivElement()..classes.add('triangle'))
+      ..children.add(new DivElement()..classes.add('triangle'))
       ..onClick.listen(_prevSong);
 
-    var seekBack = new ButtonElement()
+    var seekBack = new DivElement()
       ..classes.add('seek')
       ..classes.add('left')
-      ..children.add(new SpanElement()..classes.add('triangle'))
-      ..children.add(new SpanElement()..classes.add('triangle'))
+      ..children.add(new DivElement()..classes.add('triangle'))
+      ..children.add(new DivElement()..classes.add('triangle'))
       ..title = 'Backward 10 seconds'
       ..onClick.listen(_seekBackward);
 
     _playButton
-      ..children.add(new SpanElement()..classes.add('triangle'))
+      ..children.add(new DivElement()..classes.add('triangle'))
       ..title = 'Not ready'
       ..onClick.listen(_togglePause);
 
-    var seekForward = new ButtonElement()
+    var seekForward = new DivElement()
       ..classes.add('seek')
       ..classes.add('right')
-      ..children.add(new SpanElement()..classes.add('triangle'))
-      ..children.add(new SpanElement()..classes.add('triangle'))
+      ..children.add(new DivElement()..classes.add('triangle'))
+      ..children.add(new DivElement()..classes.add('triangle'))
       ..title = 'Forward 10 seconds'
       ..onClick.listen(_seekForward);
 
     _nextButton
-      ..children.add(new SpanElement()..classes.add('triangle'))
-      ..children.add(new SpanElement()..classes.add('triangle'))
-      ..children.add(new SpanElement()..classes.add('bar'))
+      ..children.add(new DivElement()..classes.add('triangle'))
+      ..children.add(new DivElement()..classes.add('triangle'))
+      ..children.add(new DivElement()..classes.add('bar'))
       ..onClick.listen(_nextSong);
 
     _controlsDiv.children
