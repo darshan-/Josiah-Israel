@@ -1,6 +1,6 @@
-pause button
 disabled play button (and seek and skip buttons?)
-updatePlayPauseButton()
+  actually disable; don't just change appearance
+
 Slide in new song title from right
   slide old song title to left
   Use same timing as sliding song info
@@ -10,3 +10,10 @@ Slide in new song title from right
 Listen for page zoom-in / -out and reflow content
   This is necessary because you hard-code the content height
    after adding song list
+
+Filters
+
+About section
+
+Links to particular songs
+  and playlists/filters?
